@@ -17,8 +17,12 @@ import { Feather } from "@expo/vector-icons";
 import Carousel from "../components/Carousel";
 import Services from "../components/Services";
 import DressItem from "../components/DressItem";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../ProductReducer";
 
 const HomeScreen = () => {
+  const cart = useSelector((state) => state.cart.cart);
+  console.log(cart);
   const [displayCurrentAddress, setdisplayCurrentAddress] = useState(
     "We are loading you location"
   );
@@ -83,6 +87,18 @@ const HomeScreen = () => {
       }
     }
   };
+
+  const product = useSelector((state) => state.product.product);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (product.length > 0) return;
+
+    const fetchProducts = () => {
+      services.map((service) => dispatch(getProducts(service)));
+    };
+    fetchProducts();
+  }, []);
+  // console.log(product);
 
   const services = [
     {
@@ -177,7 +193,7 @@ const HomeScreen = () => {
         <Services />
 
         {/*Render Products */}
-        {services.map((item, index) => (
+        {product.map((item, index) => (
           <DressItem item={item} key={index} />
         ))}
       </ScrollView>
@@ -196,7 +212,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   header: {
-    flex: 0.1,
+    flex: 0.15,
     // backgroundColor: "green",
     flexDirection: "row",
     alignItems: "center",
