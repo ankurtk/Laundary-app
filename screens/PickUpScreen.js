@@ -93,7 +93,7 @@ const PickUpScreen = () => {
       <SafeAreaView style={styles.container}>
         <View style={styles.input}>
           <Pressable onPress={() => navigation.goBack()}>
-            <Text>back</Text> {/*Put image instead of text */}
+            <Text>back</Text>
           </Pressable>
           <Text
             style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 10 }}
