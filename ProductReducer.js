@@ -25,7 +25,7 @@ export const productSlice = createSlice({
         const removeItem = state.product.filter(
           (item) => item.id !== action.payload.id
         );
-        state.product = removeItem;
+        state.cart = removeItem;
       } else {
         itemPresent.quantity--;
       }

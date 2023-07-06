@@ -19,9 +19,15 @@ import Services from "../components/Services";
 import DressItem from "../components/DressItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../ProductReducer";
+import { current } from "@reduxjs/toolkit";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
   const cart = useSelector((state) => state.cart.cart);
+  const total = cart
+    .map((item) => item.quantity * item.price)
+    .reduce((curr, prev) => curr + prev, 0);
+  const navigation = useNavigation();
   console.log(cart);
   const [displayCurrentAddress, setdisplayCurrentAddress] = useState(
     "We are loading you location"
@@ -197,6 +203,42 @@ const HomeScreen = () => {
           <DressItem item={item} key={index} />
         ))}
       </ScrollView>
+      {total === 0 ? null : (
+        <Pressable
+          style={{
+            backgroundColor: "#088F8F",
+            padding: 10,
+            marginBottom: 40,
+            margin: 15,
+            borderRadius: 7,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <View>
+            <Text style={{ fontSize: 15, fontWeight: "600", color: "white" }}>
+              {cart.length} items | ${total}
+            </Text>
+            <Text
+              style={{
+                fontSize: 15,
+                fontWeight: "400",
+                color: "white",
+                marginVertical: 6,
+              }}
+            >
+              extra charges might apply
+            </Text>
+          </View>
+
+          <Pressable onPress={() => navigation.navigate("Pickup")}>
+            <Text style={{ fontSize: 17, fontWeight: "600", color: "white" }}>
+              Proceed to pickup
+            </Text>
+          </Pressable>
+        </Pressable>
+      )}
     </>
   );
 };
@@ -212,10 +254,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   header: {
-    flex: 0.15,
-    // backgroundColor: "green",
+    flex: 0.2,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#f0f0f0",
   },
 });
