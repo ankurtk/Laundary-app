@@ -6,6 +6,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Pressable } from "react-native";
 import { decrementQuantity, incrementQuantity } from "../CartReducer";
 import { decrementQty, incrementQty } from "../ProductReducer";
+import { format } from "date-fns";
 
 const CartScreen = () => {
   const cart = useSelector((state) => state.cart.cart);
@@ -230,7 +231,7 @@ const CartScreen = () => {
                       color: "#088F8F",
                     }}
                   >
-                    {/* {route.params.pickUpDate} */}
+                    {format(route.params.pickUpDate, "dd-MM-yyyy")}
                   </Text>
                 </View>
 
