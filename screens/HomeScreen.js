@@ -175,7 +175,10 @@ const HomeScreen = () => {
           <Text style={{ fontSize: 18, fontWeight: 600 }}>Home</Text>
           <Text>{displayCurrentAddress}</Text>
         </View>
-        <Pressable style={{ marginLeft: "auto", marginRight: 7 }}>
+        <Pressable
+          style={{ marginLeft: "auto", marginRight: 7 }}
+          onPress={() => navigation.navigate("Profile")}
+        >
           <Image
             style={{ width: 40, height: 40, borderRadius: 20 }}
             source={{
