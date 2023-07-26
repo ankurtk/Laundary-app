@@ -8,8 +8,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
 import { ActivityIndicator } from "react-native";
+import { auth } from "../firebase";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -20,11 +20,12 @@ const LoginScreen = () => {
   useEffect(() => {
     setLoading(true);
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      console.log("hello", authUser);
       if (!authUser) {
         setLoading(false);
       }
       if (authUser) {
-        navigation.navigate("Home");
+        navigation.replace("Home");
       }
     });
     return unsubscribe;

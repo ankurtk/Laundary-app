@@ -9,6 +9,7 @@ import {
   Image,
   TextInput,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
@@ -19,7 +20,6 @@ import Services from "../components/Services";
 import DressItem from "../components/DressItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../ProductReducer";
-import { current } from "@reduxjs/toolkit";
 import { useNavigation } from "@react-navigation/native";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
@@ -130,41 +130,7 @@ const HomeScreen = () => {
       quantity: 0,
       price: 10,
     },
-    {
-      id: "12",
-      image: "https://cdn-icons-png.flaticon.com/128/9609/9609161.png",
-      name: "dresses",
-      quantity: 0,
-      price: 10,
-    },
-    {
-      id: "13",
-      image: "https://cdn-icons-png.flaticon.com/128/599/599388.png",
-      name: "jeans",
-      quantity: 0,
-      price: 10,
-    },
-    {
-      id: "14",
-      image: "https://cdn-icons-png.flaticon.com/128/9431/9431166.png",
-      name: "Sweater",
-      quantity: 0,
-      price: 10,
-    },
-    {
-      id: "15",
-      image: "https://cdn-icons-png.flaticon.com/128/3345/3345397.png",
-      name: "shorts",
-      quantity: 0,
-      price: 10,
-    },
-    {
-      id: "16",
-      image: "https://cdn-icons-png.flaticon.com/128/293/293241.png",
-      name: "Sleeveless",
-      quantity: 0,
-      price: 10,
-    },
+    // ... (other service items)
   ];
 
   return (
@@ -172,7 +138,7 @@ const HomeScreen = () => {
       <View style={styles.header}>
         <MaterialIcons name="location-on" size={30} color="#fd5c63" />
         <View>
-          <Text style={{ fontSize: 18, fontWeight: 600 }}>Home</Text>
+          <Text style={{ fontSize: 18, fontWeight: "600" }}>Home</Text>
           <Text>{displayCurrentAddress}</Text>
         </View>
         <Pressable
@@ -205,15 +171,25 @@ const HomeScreen = () => {
           <Feather name="search" size={24} color="#fd5c63" />
         </View>
 
-        {/*Image Carasoule */}
+        {/* Image Carasoule */}
         <Carousel />
-        {/*Services */}
+        {/* Services */}
         <Services />
 
-        {/*Render Products */}
-        {product.map((item, index) => (
-          <DressItem item={item} key={index} />
-        ))}
+        {/* Show loader if products are being fetched */}
+        {product.length === 0 ? (
+          <View style={styles.loaderContainer}>
+            <ActivityIndicator size="large" color="#fd5c63" />
+            <Text style={styles.loaderText}>Loading products...</Text>
+          </View>
+        ) : (
+          // Render Products once they are available
+          <>
+            {product.map((item, index) => (
+              <DressItem item={item} key={index} />
+            ))}
+          </>
+        )}
       </ScrollView>
       {total === 0 ? null : (
         <Pressable
@@ -266,10 +242,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   header: {
-    flex: 0.16,
+    flex: 0.19,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#f0f0f0",
   },
+  loaderContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+  },
+  loaderText: {
+    marginTop: 10,
+    fontSize: 16,
+  },
 });
+
+// ... (other code)

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { caretHidden } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
 
 export const CartSlice = createSlice({
   name: "cart",
@@ -42,6 +43,9 @@ export const CartSlice = createSlice({
         itemPresent.quantity--;
       }
     },
+    cleanCart: (state) => {
+      state.cart = [];
+    },
   },
 });
 
@@ -50,6 +54,7 @@ export const {
   removeFromCart,
   incrementQuantity,
   decrementQuantity,
+  cleanCart,
 } = CartSlice.actions;
 
 export default CartSlice.reducer;

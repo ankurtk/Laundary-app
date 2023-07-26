@@ -8,11 +8,13 @@ import {
   Pressable,
   ScrollView,
   Alert,
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 import HorizontalDatepicker from "@awrminkhodaei/react-native-horizontal-datepicker";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 const PickUpScreen = () => {
   const cart = useSelector((state) => state.cart.cart);
@@ -96,8 +98,18 @@ const PickUpScreen = () => {
     <>
       <SafeAreaView style={styles.container}>
         <View style={styles.input}>
-          <Pressable onPress={() => navigation.goBack()}>
-            <Text>back</Text>
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={{ flexDirection: "row", marginTop: -10 }}
+          >
+            <Ionicons
+              onPress={() => navigation.goBack()}
+              name="arrow-back"
+              size={24}
+              color="black"
+              style={{ marginBottom: 20 }}
+            />
+            <Text style={{ fontSize: 18, marginLeft: 10 }}>Pickup Details</Text>
           </Pressable>
           <Text
             style={{ fontSize: 16, fontWeight: "500", marginHorizontal: 10 }}
@@ -108,7 +120,7 @@ const PickUpScreen = () => {
             style={{
               padding: 40,
               borderColor: "grey",
-              borderWidth: 0.7,
+              borderWidth: 1,
               paddingVertical: 80,
               borderRadius: 9,
               margin: 10,
@@ -156,14 +168,14 @@ const PickUpScreen = () => {
                         borderRadius: 7,
                         padding: 15,
                         borderColor: "red",
-                        borderWidth: 0.7,
+                        borderWidth: 1,
                       }
                     : {
                         margin: 10,
                         borderRadius: 7,
                         padding: 15,
                         borderColor: "grey",
-                        borderWidth: 0.7,
+                        borderWidth: 1,
                       }
                 }
               >
@@ -191,14 +203,14 @@ const PickUpScreen = () => {
                         borderRadius: 7,
                         padding: 15,
                         borderColor: "red",
-                        borderWidth: 0.7,
+                        borderWidth: 1,
                       }
                     : {
                         margin: 10,
                         borderRadius: 7,
                         padding: 15,
                         borderColor: "grey",
-                        borderWidth: 0.7,
+                        borderWidth: 1,
                       }
                 }
               >
